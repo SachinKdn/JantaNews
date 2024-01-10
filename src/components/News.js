@@ -5,7 +5,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 // b9e0d4dcf72a4daba65765a1d6abaa47  == Sachu
 // b11b8ea7e0c94eb1867505fc34d73ffb  == Sachin
-// 18ba1458fa0a441393aeab39a7a4ff68  == Sach
+// 18ba1458fa0a441393aeab39a7a4ff68  == Sachincse2020
 
 export class News extends Component {
   //  articles = [
@@ -283,15 +283,25 @@ export class News extends Component {
 
   //   https://newsapi.org/v2/top-headlines?&category=${this.props.category}&country=${this.props.country}&apiKey=b11b8ea7e0c94eb1867505fc34d73ffb
   async componentDidMount() {
+    console.log("sachin---> did mount() run hua h")
     // let page = 1;  q=${this.props.query}&
     this.props.setProgress(15)
-    let url = `https://newsapi.org/v2/top-headlines?q=${this.props.query}&category=${this.props.category}&country=${this.props.country}&apiKey=18ba1458fa0a441393aeab39a7a4ff68&page=1&pageSize=7`;
+    // var apikey = 'a8139b902ae850ae04598d17cd24f1e0';
+    let url = `https://gnews.io/api/v4/search?q=example&lang=en&category=${this.props.category}&country=${this.props.country}&max=7&apikey=a8139b902ae850ae04598d17cd24f1e0` 
+    // + apikey; q=${this.props.query}&
+
+    console.log(url)
+    // let url = `https://newsapi.org/v2/top-headlines?q=${this.props.query}&category=${this.props.category}&country=${this.props.country}&apiKey=18ba1458fa0a441393aeab39a7a4ff68&page=1&pageSize=7`;
     this.setState({
       loading: true,
     });
     let data = await fetch(url);
+    
+    console.log("sachin---> data aagya" + data)
     this.props.setProgress(45)
     let parsedData = await data.json();
+    
+    console.log("sachin---> parsed data i.e. data.json().articles" + parsedData.articles )
     this.props.setProgress(75)
     this.setState({
       article: this.state.article.concat(parsedData.articles),
@@ -306,7 +316,11 @@ export class News extends Component {
     if (prevProps.query !== this.props.query) {
       // await this.updateNews();
 
-      let url = `https://newsapi.org/v2/top-headlines?q=${this.props.query}&country=${this.props.country}&apiKey=18ba1458fa0a441393aeab39a7a4ff68&page=1&pageSize=7`;
+      // let url = `https://newsapi.org/v2/top-headlines?q=${this.props.query}&country=${this.props.country}&apiKey=18ba1458fa0a441393aeab39a7a4ff68&page=1&pageSize=7`;
+      var apikey = 'a8139b902ae850ae04598d17cd24f1e0';
+      let url = `https://gnews.io/api/v4/search?q=${this.props.query}&lang=en&country=${this.props.country}&max=7&apikey=` + apikey;
+
+      // let url = "https://newsapi.org/v2/top-headlines?q=${this.props.query}&country=${this.props.country}&apiKey=18ba1458fa0a441393aeab39a7a4ff68";
       this.setState({
         loading: true,
       });
@@ -367,7 +381,7 @@ export class News extends Component {
               return (
                 <div className="col-md-4" key={index}>
                   <NewsItems
-                    title={element.title?element.title:"illu illu"}
+                    title={element.title?element.title:"Not Available"}
                     key={index}
                     description={
                       element.description !== null
